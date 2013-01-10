@@ -1,0 +1,10 @@
+<%= javascript_include_tag 'admin/ckeditor/ckeditor.js' %>
+
+<script type="text/javascript">
+  $(function() {
+    var ids = [<%= raw ids.map{|id| "'textarea##{id}'"}.join(', ') %>]
+    $(ids.join(', ')).each(function() {
+      CKEDITOR.replace(this.id);
+    });
+  });
+</script>
