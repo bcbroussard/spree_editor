@@ -1,24 +1,30 @@
 <%= render :partial => 'spree/admin/shared/configuration_menu' %>
 
-<h1><%= t('rich_editor') %></h1>
+<% content_for :page_title do %>
+  <%= t('.rich_editor') %>
+<% end %>
 
-<%= form_for(@config, :as => "editor_configuration", :url => admin_editor_settings_path, :method => :put) do |form| %>
-  <fieldset id="preferences">
+<%= form_for(@config, :as => "editor_configuration", :url => admin_editor_settings_path, :method => :put, :html => { :multipart => true }) do |form| %>
+  <fieldset class="no-border-top">
     <%= form.field_container :current_editor do %>
-      <%= form.label(:current_editor, t('rich_editor_engine')) %>
-      <%= select_tag :current_editor, options_for_select(SpreeEditor::EditorEngines, @config[:current_editor])  %>
+      <%= form.label :current_editor, t('rich_editor_engine') %>:<br/>
+      <%= select_tag :current_editor, options_for_select(SpreeEditor::EditorEngines, @config[:current_editor]), :class => 'select2'  %>
     <% end %>
-    <%= form.field_container :enabled do %>
-      <%= preference_field_tag(:enabled,   @config[:enabled], :type => :boolean) %>
-      <%= form.label(:enabled, t(:enable_rich_editor)) %>
-    <% end %>
+
     <%= form.field_container :ids do %>
-      <%= form.label(:ids, t(:rich_editor_ids_description)+": ") + tag(:br) %>
+      <%= form.label :ids, t(:rich_editor_ids_description) %>:<br/>
       <%= preference_field_tag(:ids,  @config[:ids], :type => :text) %>
     <% end %>
+
+    <%= form.field_container :enabled do %>
+      <%= preference_field_tag(:enabled,   @config[:enabled], :type => :boolean) %>
+      <%= form.label :enabled, t(:enable_rich_editor) %>
+    <% end %>
+
+    <div class="form-buttons filter-actions actions" data-hook="buttons">
+      <%= button t(:update), 'icon-refresh' %>
+      <span class="or"><%= t(:or) %></span>
+      <%= link_to_with_icon 'icon-remove', t(:cancel), edit_admin_editor_settings_url, :class => 'button' %>
+    </div>
   </fieldset>
-  <p class="form-buttons">
-    <%= button t('update') %>
-    <%= t("or") %> <%= link_to t("cancel"), admin_editor_settings_url %>
-  </p>
 <% end %>

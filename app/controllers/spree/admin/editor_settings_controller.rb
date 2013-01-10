@@ -1,9 +1,5 @@
 class Spree::Admin::EditorSettingsController < Spree::Admin::BaseController
 
-  def show
-    @config = Spree::EditorConfiguration.new
-  end
-
   def edit
     @config = Spree::EditorConfiguration.new
   end
@@ -16,7 +12,7 @@ class Spree::Admin::EditorSettingsController < Spree::Admin::BaseController
       config[name] = value
     end
 
-    redirect_to admin_editor_settings_path
+    redirect_to edit_admin_editor_settings_path
   end
 
 end

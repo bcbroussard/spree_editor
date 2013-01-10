@@ -1,0 +1,38 @@
+<% content_for :page_title do %>
+  <%= t('.new_upload') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li><%= button_link_to t(:back_to_uploads_list), admin_uploads_url, :icon => 'icon-arrow-left' %></li>
+<% end %>
+
+<%= render :partial => 'spree/admin/shared/configuration_menu' unless request.xhr? %>
+
+<%= render "spree/shared/error_messages", :target => @upload %>
+
+<%= form_for([:admin, @upload], :html => { :multipart => true }) do |f| %>
+<fieldset data-hook="new_upload">
+  <legend align="center">New Image</legend>
+
+  <div class="alpha four columns">
+    <div class="field">
+      <%= f.label :attachment %><br />
+      <%= f.file_field :attachment %>
+      <%= f.error_message_on :attachment %>
+    </div>
+  </div>
+
+  <div class="omega eight columns">
+    <div class="field">
+      <%= f.label :alt, t('description') %><br />
+      <%= f.text_field :alt, :class => 'fullwidth text' %>
+      <%= f.error_message_on :alt %>
+    </div>
+  </div>
+
+  <div class="clear"></div>
+
+  <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+
+</fieldset>
+<% end %>

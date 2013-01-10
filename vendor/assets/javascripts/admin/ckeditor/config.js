@@ -105,12 +105,16 @@ CKEDITOR.editorConfig = function( config ) {
         dialog.hidePage( 'Link' ); //Hide Link tab.
 
         $("#display_"+dialogName+"_uploads")
-        .load(config.addQueryString(config.fileinlinebrowserBrowseUrl, {type:dialogName}))
         .on('click', 'a.image', function(ev) {
           var upload = dialog.getContentElement('Upload', 'upload') || dialog.getContentElement('upload', 'upload');
           config.updateTargetElement(this.href, upload);
           return false;
         });
+      });
+
+      dialog.on('show', function(ev) {
+        $("#display_"+dialogName+"_uploads")
+        .load(config.addQueryString(config.fileinlinebrowserBrowseUrl, {type:dialogName}));
       });
 
       if (upload && upload.filebrowser['params'] == null) {
