@@ -12,7 +12,7 @@ module SpreeEditor
       end
 
       def copy_tinymce_file
-        copy_file "config/tinymce.yml", "config/tinymce.yml"
+        copy_file "editors/config.js", "app/assets/editors/config.js"
       end
     end
   end

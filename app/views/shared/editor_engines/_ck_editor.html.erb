@@ -1,10 +1,13 @@
 <%= javascript_include_tag 'admin/ckeditor/ckeditor.js' %>
+<%= javascript_include_tag 'editors/config.js' %>
 
 <script type="text/javascript">
   $(function() {
-    var ids = [<%= raw ids.map{|id| "'textarea##{id}'"}.join(', ') %>]
+    var ids = [<%= raw ids.map{|id| "'textarea##{id}'"}.join(', ') %>];
+    if (typeof Editors != 'object') { Editors = {}; }
+    console.log(typeof Editors);
     $(ids.join(', ')).each(function() {
-      CKEDITOR.replace(this.id);
+      CKEDITOR.replace(this.id, Editors.CKEditor);
     });
   });
 </script>

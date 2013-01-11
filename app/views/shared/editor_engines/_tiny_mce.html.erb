@@ -1,6 +1,16 @@
+<%= javascript_include_tag 'admin/tiny_mce/tiny_mce.js' %>
+<%= javascript_include_tag 'editors/config.js' %>
+
 <script type="text/javascript">
   $(function() {
-    var myConfig = { dompath: true };
-    tinyMCE.init(<%#= raw TinyMCE::Rails.configuration.options.merge({ :elements => ids.join(',') }).to_json %>);
+    var ids = [<%= raw ids.map{|id| "'textarea##{id}'"}.join(', ') %>], els = [];
+    $(ids.join(', ')).each(function() {
+      els.push(this.id);
+    });
+    if (typeof Editors !== 'object') { Editors = {} }
+    tinyMCE.init($.extend(Editors.TinyMCE, {
+      mode: "exact",
+      elements: els.join(', '),
+    }));
   });
 </script>
