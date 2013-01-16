@@ -5,7 +5,7 @@ module SpreeEditor
     config.autoload_paths += %W(#{config.root}/lib)
 
     initializer :assets do |config|
-      Rails.application.config.assets.precompile += %w(admin/spree_editor.js editors/config.js)
+      Rails.application.config.assets.precompile += %w(admin/ckeditor/* admin/tiny_mce/* editors/config.js)
     end
 
     def self.activate
